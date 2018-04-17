@@ -45,8 +45,8 @@ namespace ucubot.Controllers
                         {
                             LessonSignalDto lessonSignalDto = new LessonSignalDto();
                             lessonSignalDto.Id = reader.GetInt32("id");
-                            lessonSignalDto.Timestamp = reader.GetDateTime("Timestamp");
-                            lessonSignalDto.UserId = reader.GetString("UserId");
+                            lessonSignalDto.Timestamp = reader.GetDateTime("timestamp_");
+                            lessonSignalDto.UserId = reader.GetString("user_id");
                             lessonSignalDto.Type =
                                 SignalTypeUtils.ConvertSlackMessageToSignalType(reader.GetString("signal_type"));
                             lessonSignalDtos.Append(lessonSignalDto);
@@ -119,7 +119,7 @@ namespace ucubot.Controllers
             {
                 connection.Open();
                 String str =
-                    "INSERT INTO lesson_signal (signalType, Timestamp, userId) VALUES (@signalType, @Date, @userId)";
+                    "INSERT INTO lesson_signal (signal_type, timestamp_, userId) VALUES (@signalType, @Date, @userId)";
                 
                 using (MySqlCommand cmd = new MySqlCommand(str, connection))
                 {
